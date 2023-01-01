@@ -1,0 +1,14 @@
+FROM alpine:3 as builder
+
+RUN apk update && \
+  apk upgrade && \
+  apk add --no-cache util-linux
+
+FROM alpine:3 as runner
+
+COPY --from=builder /usr/bin/script /usr/bin/script
+
+WORKDIR /work
+
+ENTRYPOINT ["/usr/bin/script", "-f", "-q", "--timing=/logs/timing.log", "/logs/commands.log"]
+CMD [ "/bin/sh" ]
