@@ -1,6 +1,6 @@
 # alpine-sandbox
 
-Docker (Windows) で Alpine のサンドボックス環境を 1 コマンドで立てられるようにするやつ。
+Docker (Windows) で Alpine のサンドボックス環境を 1 コマンドで立てられるようにするやつ。  
 コンテナ内で実行したコマンドやその結果は script コマンドか [asciinema](https://asciinema.org/) で記録する。
 
 Dockerfile を作る前に検証するときとかに使えるかも。
