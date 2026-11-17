@@ -8,7 +8,6 @@ Handy for trying out commands before you write them into a Dockerfile.
 ## Requirements
 
 - Windows with Docker (`docker` on the `PATH`)
-- `alpine-sandbox.bat` builds the date-stamped directory name from `%date%`, which assumes a `yyyy/mm/dd` short date format (for example a Japanese locale). Other locale formats produce a garbled directory name.
 
 ## Installation
 
@@ -34,7 +33,7 @@ Run it from the repository directory: the launcher builds with `docker build .`,
 
 The launcher does the following:
 
-1. Creates `data\<yyyy-mm-dd_hh-mm>\work\` and `data\<yyyy-mm-dd_hh-mm>\logs\` next to `alpine-sandbox.bat`.
+1. Creates a unique `data\<session>\work\` and `data\<session>\logs\` next to `alpine-sandbox.bat`.
 2. Builds the image from `Dockerfile` as `alpine-sandbox:1.0`.
 3. Runs it interactively with `--rm`, mounting `work` at `/work` (the working directory) and `logs` at `/logs`.
 
@@ -54,3 +53,7 @@ docker run -it --rm -v <logdir>:/logs -v <workdir>:/work alpine-sandbox:script
 It is meant to write the terminal log to `commands.log` and the timing data to `timing.log` in the logs directory.
 
 Known issue: with the current `ENTRYPOINT`/`CMD`, this variant exits immediately with `script: unexpected number of arguments` (verified by building and running it), so it does not produce a recording yet.
+
+## Windows smoke test
+
+Run `powershell -ExecutionPolicy Bypass -File tests\windows-smoke.ps1` to check paths with spaces and `&`, sequential and concurrent launches, and build failure handling using a Docker stub.
